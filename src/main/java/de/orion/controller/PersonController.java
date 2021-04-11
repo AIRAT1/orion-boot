@@ -22,13 +22,12 @@ public class PersonController {
         return personService.create(personDto);
     }
 
-    @PutMapping("{id}")
+    @PutMapping("/{id}")
     public PersonDto update(@RequestBody PersonDto personDto, @PathVariable("id") String id) {
         return personService.update(personDto, id);
     }
 
     @DeleteMapping("/{id}")
-    @ResponseStatus
     public void delete(@PathVariable("id") String id) {
         personService.delete(id);
     }
