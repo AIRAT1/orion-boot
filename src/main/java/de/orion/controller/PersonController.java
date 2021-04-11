@@ -4,10 +4,7 @@ import de.orion.dto.PersonDto;
 import de.orion.service.PersonService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/persons")
@@ -16,7 +13,22 @@ public class PersonController {
     private final PersonService personService;
 
     @GetMapping(value = "/{id}")
-    public PersonDto findPersonById (@PathVariable("id") String id) {
-        return personService.findPersonById(id);
+    public PersonDto findById (@PathVariable("id") String id) {
+        return personService.findById(id);
+    }
+
+    @PostMapping
+    public PersonDto create(@RequestBody PersonDto personDto) {
+        return personService.create(personDto);
+    }
+
+    @PutMapping("{id}")
+    public PersonDto update(@RequestBody PersonDto personDto, @PathVariable("id") String id) {
+        return personService.update(personDto, id);
+    }
+
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable("id") String id) {
+        personService.delete(id);
     }
 }

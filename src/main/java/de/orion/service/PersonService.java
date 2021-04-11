@@ -3,5 +3,8 @@ package de.orion.service;
 import de.orion.dto.PersonDto;
 
 public interface PersonService {
-    PersonDto findPersonById(String id);
+    PersonDto findById(String id);
+    PersonDto create(PersonDto personDto);
+    PersonDto update(PersonDto personDto, String id);
+    void delete(String id);
 }
