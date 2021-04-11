@@ -10,7 +10,6 @@ import java.util.Map;
 
 @Service
 public class PersonServiceImpl implements PersonService {
-
     private static final Map<String, PersonDto> personById;
 
     static {
