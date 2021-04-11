@@ -1,5 +1,6 @@
 package de.orion.dto;
 
+import de.orion.validator.custom.CustomEmail;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -21,7 +22,7 @@ public class PersonDto {
     private String name;
     @Positive
     private Short age;
-    @Email
+    @CustomEmail
     private String email;
     private AddressDto address;
 }
