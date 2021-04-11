@@ -28,6 +28,7 @@ public class PersonController {
     }
 
     @DeleteMapping("/{id}")
+    @ResponseStatus
     public void delete(@PathVariable("id") String id) {
         personService.delete(id);
     }
