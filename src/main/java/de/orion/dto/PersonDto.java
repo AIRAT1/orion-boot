@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 public class PersonDto {
     private String id;
     private String name;
+    private Short age;
     private String email;
     private AddressDto address;
 }
