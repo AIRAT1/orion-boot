@@ -1,6 +1,6 @@
 package de.orion.validator.mvc;
 
-import de.orion.dto.AddressDto;
+import de.orion.domain.dto.AddressDto;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;

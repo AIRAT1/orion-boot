@@ -1,4 +1,4 @@
-package de.orion.dto;
+package de.orion.domain.dto;
 
 import de.orion.validator.custom.CustomEmail;
 import lombok.AllArgsConstructor;
@@ -6,23 +6,23 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
+import java.util.UUID;
 
 @Data
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
 public class PersonDto {
-    private String id;
-    @NotEmpty
+    private UUID id;
     @NotNull
+    @NotEmpty
     private String name;
-    @Positive
-    private Short age;
+    private Short age = -1;
     @CustomEmail
     private String email;
+    private UUID addressId;
     private AddressDto address;
 }

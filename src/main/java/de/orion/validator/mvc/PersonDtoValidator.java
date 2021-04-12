@@ -1,7 +1,7 @@
 package de.orion.validator.mvc;
 
-import de.orion.dto.AddressDto;
-import de.orion.dto.PersonDto;
+import de.orion.domain.dto.AddressDto;
+import de.orion.domain.dto.PersonDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
