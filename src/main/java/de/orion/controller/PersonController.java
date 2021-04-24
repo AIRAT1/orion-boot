@@ -1,12 +1,17 @@
 package de.orion.controller;
 
 import de.orion.domain.dto.PersonDto;
+import de.orion.domain.entity.Person;
+import de.orion.jdbc.JdbcTemplateExample;
 import de.orion.service.PersonService;
 import de.orion.validator.mvc.PersonDtoValidator;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.convert.ConversionService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
@@ -20,6 +25,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Validated
 @RestController
@@ -28,6 +34,8 @@ import java.util.UUID;
 public class PersonController {
     private final PersonService personService;
     private final PersonDtoValidator personDtoValidator;
+    private final ConversionService conversionService;
+    private final JdbcTemplateExample jdbcTemplateExample;
 
     @InitBinder
     public void initBinder(WebDataBinder webDataBinder) {
@@ -35,13 +43,24 @@ public class PersonController {
     }
 
     @GetMapping
-    public List<PersonDto> getAll() {
-        return personService.getAll();
+    public Page<PersonDto> getAll(Pageable pageable) {
+        return personService.getAll(pageable);
     }
 
     @GetMapping(value = "/{id}")
     public PersonDto findById(@PathVariable("id") UUID id) {
-        return personService.findById(null);
+        return personService.findById(id);
+    }
+
+    @GetMapping("/jdbc")
+    public List<PersonDto> getAllJdbc() {
+        return jdbcTemplateExample.getAll().stream().map(
+                it -> conversionService.convert(it, PersonDto.class)).collect(Collectors.toList());
+    }
+
+    @GetMapping(value = "/jdbc/{id}")
+    public PersonDto findByIdJdbc(@PathVariable("id") UUID id) {
+        return conversionService.convert(jdbcTemplateExample.getById(id), PersonDto.class);
     }
 
     @PostMapping

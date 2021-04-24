@@ -1,6 +1,8 @@
 package de.orion.service;
 
 import de.orion.domain.dto.PersonDto;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.validation.annotation.Validated;
 
 import javax.validation.constraints.NotNull;
@@ -19,5 +21,5 @@ public interface PersonService {
 
     void delete(UUID id);
 
-    List<PersonDto> getAll();
+    Page<PersonDto> getAll(Pageable pageable);
 }
