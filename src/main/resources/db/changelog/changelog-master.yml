@@ -1,0 +1,122 @@
+databaseChangeLog:
+  - changeSet:
+      id: "683af79b-90b9-4627-84f7-5c42744eaab1"
+      author: "dmitry.kotov"
+      changes:
+        - createTable:
+            tableName: address_oto
+            columns:
+              - column:
+                  name: id
+                  type: varchar(36)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: city
+                  type: varchar(255)
+              - column:
+                  name: street
+                  type: varchar(255)
+  - changeSet:
+      id: "f44a3550-a687-4b94-b175-aee24ac76603"
+      author: "dmitry.kotov"
+      changes:
+        - createTable:
+            tableName: address_mto
+            columns:
+              - column:
+                  name: id
+                  type: varchar(36)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: city
+                  type: varchar(255)
+              - column:
+                  name: street
+                  type: varchar(255)
+  - changeSet:
+      id: "3724602d-0351-442d-989f-6d91743395c1"
+      author: "dmitry.kotov"
+      changes:
+        - createTable:
+            tableName: 'users'
+            columns:
+              - column:
+                  name: id
+                  type: varchar(36)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: appartment
+                  type: varchar(255)
+              - column:
+                  name: city
+                  type: varchar(255)
+              - column:
+                  name: house
+                  type: varchar(255)
+              - column:
+                  name: street1
+                  type: varchar(255)
+              - column:
+                  name: age
+                  type: smallint(6)
+              - column:
+                  name: email
+                  type: varchar(255)
+              - column:
+                  name: first_name
+                  type: varchar(255)
+              - column:
+                  name: last_name
+                  type: varchar(255)
+              - column:
+                  name: name
+                  type: varchar(255)
+              - column:
+                  name: address_uuid
+                  type: varchar(36)
+              - column:
+                  name: address_oto_id
+                  type: varchar(36)
+  - changeSet:
+      id:  "8f1e509d-651c-411e-b01c-c38abe2984b0"
+      author:  "dmitry.kotov"
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames:  address_uuid
+            baseTableName:  users
+            constraintName:  fk_users_address_mto
+            referencedColumnNames:  id
+            referencedTableName:  address_mto
+  - changeSet:
+      id:  "44443497-fc7b-4ea8-8d51-09eeda3f34f7"
+      author:  "dmitry.kotov"
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames:  address_oto_id
+            baseTableName:  users
+            constraintName:  fk_users_address_oto
+            referencedColumnNames:  id
+            referencedTableName:  address_oto
+  - changeSet:
+      id:  "1763d166-1554-4fcf-bf6f-7acde1f913a1"
+      author:  liquibase-docs
+      changes:
+        - sqlFile:
+            path: sql/init.sql
+            relativeToChangelogFile: true
+            splitStatements: true
+  - changeSet:
+      id:  "6e6b462f-baf9-4995-8b19-a23e54924495"
+      author:  liquibase-docs
+      changes:
+        - addColumn:
+            tableName: 'users'
+            columns:
+              name: password
+              type: varchar(255)
